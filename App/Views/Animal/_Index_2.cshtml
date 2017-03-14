@@ -1,0 +1,35 @@
+﻿@model IEnumerable<App.Models.Dominio.Animal>
+
+<table class="table table-condensed table-hover">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Tipo</th>
+            <th>Habitat</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model)
+        {
+            <tr data-id="@m.Id">
+                <td>@m.Nome</td>
+                <td>@m.Tipo</td>
+                <td>@m.Habitat</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@for (int i = 1; i <= ViewBag.pageCount; i++)
+{
+    <ul class="pagination pagination-sm">
+        @if (ViewBag.selectedPage == i)
+        {
+            <li class="active"><a href="#">@i</a></li>
+        }
+        else
+        {
+            <li><a href="#">@i</a></li>
+        }
+    </ul>
+}

@@ -1,0 +1,42 @@
+﻿@{ViewBag.Title = "Animal Index";}
+
+<h1>Listagem de animais</h1>
+
+@Html.ActionLink("Adicionar novo", "Add")
+
+<table class="table table-condensed" data-entity="Animal">
+    <thead>
+        <tr>             
+            <th>Nome</th>
+            <th>Tipo</th>
+            <th>Habitat</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody id="index">
+        @{Html.RenderAction("PartialIndex", new { page = 1 }); }
+    </tbody>
+</table>
+
+@for (int i = 1; i <= ViewBag.pageCount; i++)
+{
+    <ul class="pagination pagination-sm">
+        <li>@Ajax.ActionLink(i.ToString(), "PartialIndex", new { page = i }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "index", InsertionMode = InsertionMode.Replace })</li>
+    </ul>
+}
+
+@section scripts{
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+}
+
+<script type="text/javascript">
+    $(document).on("click", "a[data-action='delete']", function () {
+        var q = confirm("Deseja realmente deletar esse registro ?");
+        if (q){ 
+            var url = "/" + $("table").attr("data-entity") + "/Delete/";
+            $.post(url, { id: $(this).attr("data-id") });
+        }     
+    });
+</script>
+
+

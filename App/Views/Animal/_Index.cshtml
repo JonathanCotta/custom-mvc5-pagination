@@ -1,0 +1,11 @@
+﻿@model IEnumerable<App.Models.Dominio.Animal>
+   
+@foreach (var m in Model)
+{
+    <tr>        
+        <td>@m.Nome</td>
+        <td>@m.Tipo</td>
+        <td>@m.Habitat</td>
+        <td>@Html.ActionLink("Editar","Edit", new { id = m.Id }) | <a href="#" data-id="@m.Id" data-action="delete">Deletar</a></td>
+    </tr>
+}
